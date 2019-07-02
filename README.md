@@ -37,7 +37,7 @@ Well done, you have install pip, let's go for the next step.
 
 4. [Clone the project on your computer.](https://help.github.com/en/articles/cloning-a-repository)
 
-5. For install the dependences navigate to the folder of the project with command and use this command:
+5. For install the dependences navigate to the folder of the project with command and use this:
 
 `pip install -r requirements.txt`
 
@@ -53,7 +53,7 @@ Well done, you have install pip, let's go for the next step.
 
 2. [Clone the project on your computer.](https://help.github.com/en/articles/cloning-a-repository)
 
-3. For install the dependences navigate to the folder of the project with command and use this command:
+3. For install the dependences navigate to the folder of the project with command and use this:
 
 `pip install -r requirements.txt`
 
