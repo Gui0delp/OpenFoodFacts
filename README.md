@@ -27,7 +27,7 @@ This Python script will query the API of OpenFoodFacts in order to propose to th
 [get-pip.py for Python 3.2 or later](
 https://bootstrap.pypa.io/3.2/get-pip.py)
 
-2. Open a Command (Window+r -> cmd) and navigate to the get-pip.py file.
+2. Open a Command (Window+r -> write cmd) and navigate to the get-pip.py file.
 
 3. Run the following command:
 
@@ -40,6 +40,8 @@ Well done, you have install pip, let's go for the next step.
 5. For install the dependences navigate to the folder of the project with command and use this command:
 
 `pip install -r requirements.txt`
+
+6. Now you can use the script with command
 
 **Installation for Mac:**
 
@@ -54,6 +56,8 @@ Well done, you have install pip, let's go for the next step.
 3. For install the dependences navigate to the folder of the project with command and use this command:
 
 `pip install -r requirements.txt`
+
+4. Now you can use the script with command
 
 ## Documentation ##
 
