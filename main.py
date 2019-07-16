@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-    blabla
+    Docstring
 """
 
 def main():
