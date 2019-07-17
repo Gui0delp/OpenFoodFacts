@@ -18,7 +18,7 @@ def main():
     #Je liste les catégories à recupérer category_list
     #Je boucle sur la liste
 
-    #List of the different categories#List of the different categories from openfoodfacts API
+    #List of the differents categories from openfoodfacts API
     category_list = [\
         "conserves",\
         "pizzas",\
@@ -31,8 +31,15 @@ def main():
         "biscuits",\
         "legumes-et-derives"]
 
-    response = requests.get('https://fr.openfoodfacts.org/categorie/pizza.json')
-    print(response)
+    #URL https://fr.openfoodfacts.org/categorie/pizza.json
+    for element in category_list:
+
+        response = requests.get("https://fr.openfoodfacts.org/categorie/{a}.json".format(a = element))
+
+        if response.status_code == requests.codes.ok:
+            print("[code: 200] - the category {a} answer well".format(a= element))
+        else:
+            print(response)
 
 if __name__ == "__main__":
     main()
