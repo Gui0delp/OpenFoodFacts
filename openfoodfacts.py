@@ -6,13 +6,30 @@
 """
 
 import json
+import time
 import requests  #pylint: disable=E0401
+
+
+def convert_time(time_convert):
+    """
+        Function permit to convert time into minutes and seconds
+        This function take a float
+        Return int (minutes and secondes)
+    """
+    minutes_t = round(time_convert / 60, 0)
+    seconds_t = round(time_convert % 60, 0)
+
+    print("Execution time: {a} m {b} s\n".format(a=int(minutes_t), b=int(seconds_t)))
+    #return minutes_t, seconds_t
 
 def main():
     """
         Main function of the script
     """
 
+    time_start = 0
+    time_end = 0
+    time_result = 0
     #List of the differents categories from openfoodfacts API
     category_list = [\
         "conserves",\
@@ -31,6 +48,8 @@ def main():
     print("url = https://fr.openfoodfacts.org/categorie/[category_element].json")# pylint: disable=C0325
     print("-----------------------------------------------------------------------")# pylint: disable=C0325
 
+    time_start = time.time()
+
     for element in category_list:
         quiery_file = requests.get("https://fr.openfoodfacts.org/categorie/{a}.json".format(a=element))# pylint: disable=C0301
 
@@ -41,15 +60,31 @@ def main():
 
     print("-----------------------------------------------------------------------")#pylint: disable=C0325
 
+    time_end = time.time()
+    time_result = time_end - time_start
+    convert_time(time_result)
+
+
     #Transfer data into a dictionnary
     dict_element = json.loads(quiery_file.text)
     #Keys of the dictionnary: skip, page_size, products, count, page
 
-    for product in dict_element['products']:
-        print(product)#pylint: disable=C0325
+    for key, value in dict_element.items():
+        if key == "products":
+            list_product = value
 
-    #Check type of the object need to be dict
-    print(type(dict_element))#pylint: disable=C0325
+    #OK
+    #for elements in list_product:
+        #print(type(elements))
+        #for element in elements:
+            #if element == "product_name":
+                #print(element)
+
+    for elements in list_product:
+        for key, element in elements.items():
+            if key == "product_name":
+                print(element)
+
 
 if __name__ == "__main__":
     main()
