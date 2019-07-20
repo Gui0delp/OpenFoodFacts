@@ -19,7 +19,7 @@ def convert_time(time_convert):
     minutes_t = round(time_convert / 60, 0)
     seconds_t = round(time_convert % 60, 0)
 
-    print("Execution time: {a} m {b} s\n".format(a=int(minutes_t), b=int(seconds_t)))
+    print("Execution time: {a} m {b} s".format(a=int(minutes_t), b=int(seconds_t)))#pylint: disable=C0325
     #return minutes_t, seconds_t
 
 def main():
@@ -33,15 +33,15 @@ def main():
     #List of the differents categories from openfoodfacts API
     category_list = [\
         "conserves",\
-        "pizzas",\
         "plats",\
+        "legumes-et-derives",\
         "yaourts",\
         "jambons",\
         "barres-de-cereales",\
         "sauces",\
         "pates-alimentaires",\
         "biscuits",\
-        "legumes-et-derives"]
+        "pizzas"]
 
     #URL https://fr.openfoodfacts.org/categorie/pizza.json
     print("\nTest the connexions with the differents URL...")# pylint: disable=C0325
@@ -63,28 +63,35 @@ def main():
     time_end = time.time()
     time_result = time_end - time_start
     convert_time(time_result)
-
+    print("-----------------------------------------------------------------------")#pylint: disable=C0325
 
     #Transfer data into a dictionnary
     dict_element = json.loads(quiery_file.text)
     #Keys of the dictionnary: skip, page_size, products, count, page
-
     for key, value in dict_element.items():
         if key == "products":
             list_product = value
-
-    #OK
-    #for elements in list_product:
-        #print(type(elements))
-        #for element in elements:
-            #if element == "product_name":
-                #print(element)
-
+    #This loop search the key product name and print the value
+    index_product = 0
     for elements in list_product:
         for key, element in elements.items():
             if key == "product_name":
-                print(element)
+                index_product += 1
+                name = element
+            elif key == "code":
+                code = element
+            elif key == "nutrition_grade_fr":
+                nutri_gr_fr = element
 
+        print("{a} | name: {b} | code: {c} | nutri score: {d}"\
+        .format(\
+         a=index_product,\
+         b=name,\
+         c=code,\
+         d=nutri_gr_fr,\
+         ))#pylint: disable=C0325
+
+    print("-----------------------------------------------------------------------\n")#pylint: disable=C0325
 
 if __name__ == "__main__":
     main()
