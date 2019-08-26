@@ -30,6 +30,12 @@ def main():
     time_start = 0
     time_end = 0
     time_result = 0
+    name = ""
+    code = ""
+    nutri_gr_fr = ""
+    url_items = ""
+    store = ""
+    origins_items = ""
     #List of the differents categories from openfoodfacts API
     category_list = [\
         "conserves",\
@@ -82,13 +88,24 @@ def main():
                 code = element
             elif key == "nutrition_grade_fr":
                 nutri_gr_fr = element
+            elif key == "url":
+                url_items = element
+            elif key == "stores":
+                store = element
+            elif key == "labels":
+                origins_items = element
+            else:
+                pass
 
-        print("{a} | name: {b} | code: {c} | nutri score: {d}"\
+        print("{a} | name: {b} | code: {c} | nutri score: {d} | store: {f} | origine: {g}| url: {e}" \
         .format(\
          a=index_product,\
          b=name,\
          c=code,\
          d=nutri_gr_fr,\
+         e=url_items,\
+         f=store,\
+         g=origins_items,\
          ))#pylint: disable=C0325
 
     print("-----------------------------------------------------------------------\n")#pylint: disable=C0325
