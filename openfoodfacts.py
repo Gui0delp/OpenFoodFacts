@@ -36,6 +36,7 @@ def main():
     url_items = ""
     store = ""
     origins_items = ""
+    list_category = []
     #List of the differents categories from openfoodfacts API
     category_list = [\
         "conserves",\
@@ -61,8 +62,15 @@ def main():
 
         if quiery_file.status_code == requests.codes.ok:
             print("[code: 200] - the category {a} answer well".format(a=element))#pylint: disable=C0325
-        else:
-            print(quiery_file)#pylint: disable=C0325
+            #Transfer data into a dictionnary
+            dict_element = json.loads(quiery_file.text)
+
+            #Keys of the dictionnary: skip, page_size, products, count, page
+            for key, value in dict_element.items():
+                if key == "products":
+                    list_category.append(value)
+                else:
+                    pass
 
     print("-----------------------------------------------------------------------")#pylint: disable=C0325
 
@@ -71,31 +79,28 @@ def main():
     convert_time(time_result)
     print("-----------------------------------------------------------------------")#pylint: disable=C0325
 
-    #Transfer data into a dictionnary
-    dict_element = json.loads(quiery_file.text)
-    #Keys of the dictionnary: skip, page_size, products, count, page
-    for key, value in dict_element.items():
-        if key == "products":
-            list_product = value
     #This loop search the key product name and print the value
-    index_product = 0
-    for elements in list_product:
-        for key, element in elements.items():
+
+    i = 0
+    for category in category_list:
+        index_product = 0
+        for key, value in list_category[i][index_product].items():
             if key == "product_name":
-                index_product += 1
-                name = element
+                name = value
             elif key == "code":
-                code = element
+                code = value
             elif key == "nutrition_grade_fr":
-                nutri_gr_fr = element
+                nutri_gr_fr = value
             elif key == "url":
-                url_items = element
+                url_items = value
             elif key == "stores":
-                store = element
+                store = value
             elif key == "labels":
-                origins_items = element
+                origins_items = value
             else:
                 pass
+        i += 1
+        index_product += 1
 
         print("{a} | name: {b} | code: {c} | nutri score: {d} | store: {f} | origine: {g}| url: {e}" \
         .format(\
